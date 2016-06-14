@@ -23,14 +23,18 @@ class ThreadRecebedor extends Thread {
     ObjectInputStream entrada;
     ObjectOutputStream saida;
 
-    public ThreadRecebedor(Socket cliente) throws IOException {
-        entrada = new ObjectInputStream(cliente.getInputStream());
-        saida = new ObjectOutputStream(cliente.getOutputStream());
+    public ThreadRecebedor(Socket cliente) {
+        try {
+            entrada = new ObjectInputStream(cliente.getInputStream());
+            saida = new ObjectOutputStream(cliente.getOutputStream());
+        } catch (IOException ex) {
+            Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    private Object lerObjeto() {
+    private Usuario lerObjeto() {
         try {
-            return entrada.readObject();
+            return (Usuario) entrada.readObject();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(ThreadRecebedor.class.getName()).
                     log(Level.SEVERE, null, ex);
@@ -52,29 +56,8 @@ class ThreadRecebedor extends Thread {
 
     @Override
     public void run() {
-        System.out.println("Aqui1");
         Servidor s = new Servidor();
-        
-        while (true) {
-            Instrucao lido = (Instrucao) lerObjeto();
-            Instrucao.tipoInstrucao codigo = lido.getCodigo();
-            Usuario u = null;
-            Object o = lido.getDados();
-            System.out.println("Aqui2");
-            switch (codigo) {
-                case LOGIN:
-                    u = (Usuario) o;
-                    s.conectarUsuario(u);
-                    break;
-                case NOVOUSUARIO:
-                    u = (Usuario) o;
-                    s.cadastrarUsuario(u);
-                    break;
-                case LISTARARQUIVOS:
-                    enviarLista(s);
-                    break;
-            }
-        }
+        Usuario lido =  lerObjeto();
     }
     //http://pt.stackoverflow.com/questions/25520/enviar-objetos-via-socket
 }

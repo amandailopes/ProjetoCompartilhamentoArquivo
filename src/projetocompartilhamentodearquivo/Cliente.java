@@ -8,7 +8,6 @@ package projetocompartilhamentodearquivo;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import java.util.logging.Level;
@@ -30,13 +29,14 @@ class Cliente implements Serializable {
 
     }
 
-    public void enviarCadastro(Usuario u)  {
+    public void enviarCadastro(Usuario u) {
         try {
-            Socket socketCliente = new Socket(IP, porta);
-            Instrucao inst = new Instrucao(Instrucao.tipoInstrucao.NOVOUSUARIO,
-                    "Novo usuario", u);
+            Socket socketCliente = new Socket("127.0.0.1", 1234);
             oos = new ObjectOutputStream(socketCliente.getOutputStream());
-            oos.writeObject(inst);
+            ois = new ObjectInputStream(socketCliente.getInputStream());
+            oos.writeObject(u);
+            oos.flush();
+            oos.reset();
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }

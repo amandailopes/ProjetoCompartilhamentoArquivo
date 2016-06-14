@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -63,8 +64,10 @@ public class Servidor {
 
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(1234);
+        System.out.println(serverSocket.getLocalPort());
         while (true) {
-            new ThreadRecebedor(serverSocket.accept()).start();
+            Socket accept = serverSocket.accept();
+            new ThreadRecebedor(accept).start();
         }
     }
 

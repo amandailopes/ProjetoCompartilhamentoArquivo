@@ -11,7 +11,7 @@ import java.io.*;
  *
  * @author Amanda
  */
-class Usuario implements Serializable {
+public class Usuario implements Serializable {
 
     private String nome;
     private String email;
