@@ -26,7 +26,7 @@ class ThreadRecebedor extends Thread {
         saida = new ObjectOutputStream(accept.getOutputStream());
     }
 
-    private Object lerObjeto(){
+    private Object lerObjeto() {
         try {
             return entrada.readObject();
         } catch (IOException | ClassNotFoundException ex) {
@@ -34,20 +34,25 @@ class ThreadRecebedor extends Thread {
         }
         return null;
     }
-    
+
     @Override
     public void run() {
         Servidor s = new Servidor();
         while (true) {
             Instrucao lido = (Instrucao) lerObjeto();
             Instrucao.tipoInstrucao codigo = lido.getCodigo();
-            if (codigo == Instrucao.tipoInstrucao.LOGIN) {
-                Usuario u = (Usuario) lido.getDados();
-                String instrucao = lido.getInstrucao();
-                
+            Usuario u = null;
+            switch (codigo) {
+                case LOGIN:
+                    u = (Usuario) lido.getDados();
+                    s.conectarUsuario(u);
+                    break;
+                case NOVOUSUARIO:
+                    u = (Usuario) lido.getDados();
+                    s.cadastrarUsuario(u);
+                    break;
             }
         }
     }
-
     //http://pt.stackoverflow.com/questions/25520/enviar-objetos-via-socket
 }
