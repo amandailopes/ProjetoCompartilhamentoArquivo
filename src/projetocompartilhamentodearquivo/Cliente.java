@@ -11,7 +11,7 @@ import java.io.Serializable;
  *
  * @author Amanda
  */
-class Cliente implements Serializable{
+class Cliente implements Serializable {
 
     public Cliente() {
     }
@@ -22,7 +22,6 @@ class Cliente implements Serializable{
     }
 
     private void enviarArquivo() {
-        Instrucao i = new Instrucao("Novo usuario", 1, this);
-        i.enviar();
+        Instrucao i = new Instrucao(Instrucao.tipoInstrucao.LOGIN, "Login", this);
     }
 }

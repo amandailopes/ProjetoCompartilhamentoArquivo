@@ -18,10 +18,10 @@ import java.io.Serializable;
 public class Instrucao implements Serializable {
 
     private String instrucao;
-    private Integer codigo;
+    private tipoInstrucao codigo;
     private Object dados;
 
-    public Instrucao(String instrucao, Integer codigo, Object dados) {
+    public Instrucao(tipoInstrucao codigo, String instrucao, Object dados) {
         this.instrucao = instrucao;
         this.codigo = codigo;
         this.dados = dados;
@@ -64,7 +64,7 @@ public class Instrucao implements Serializable {
     }
 
     public static void main(String[] args) {
-        Instrucao u1 = new Instrucao("Cadastrar Usuario", 0, new Usuario("Kennedy", "123"));
+        Instrucao u1 = new Instrucao(tipoInstrucao.LOGIN, "Cadastrar Usuario", new Usuario("Kennedy", "123"));
         String objeto = u1.serializar();
 
         Instrucao u2 = new Instrucao();
@@ -72,12 +72,42 @@ public class Instrucao implements Serializable {
         System.out.println(u2.toString());
     }
 
-    
+    public String getInstrucao() {
+        return instrucao;
+    }
 
-    
-    
-    void enviar() {
-        String serializar = this.serializar();
+    public void setInstrucao(String instrucao) {
+        this.instrucao = instrucao;
+    }
 
+    public tipoInstrucao getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(tipoInstrucao codigo) {
+        this.codigo = codigo;
+    }
+
+    public Object getDados() {
+        return dados;
+    }
+
+    public void setDados(Object dados) {
+        this.dados = dados;
+    }
+
+    public enum tipoInstrucao {
+
+        LOGIN(1);
+
+        private final int valor;
+
+        tipoInstrucao(int valor) {
+            this.valor = 0;
+        }
+
+        public int getValor() {
+            return valor;
+        }
     }
 }
