@@ -31,6 +31,10 @@ class Usuario implements Serializable {
         this.nome = nome;
         this.senha = senha;
     }
+
+    private Usuario() {
+        
+    }
     
 
   
@@ -75,12 +79,12 @@ class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public static String serializar(Usuario u) {
+    public String serializar() {
         String s = "test.ser";
         try {
             FileOutputStream fo = new FileOutputStream("test.ser");
             ObjectOutputStream oo = new ObjectOutputStream(fo);
-            oo.writeObject(u); // serializo objeto cat
+            oo.writeObject(this); // serializo objeto cat
             oo.close();
             System.out.println(" serializado com sucesso");
         } catch (Exception e) {
@@ -88,7 +92,7 @@ class Usuario implements Serializable {
         return s;
     }
 
-    public static Usuario desSerializar(String s) {
+    public Usuario desSerializar(String s) {
         Usuario u = null;
         try {
             FileInputStream fi = new FileInputStream(s);
@@ -107,13 +111,19 @@ class Usuario implements Serializable {
         return "Usuario{" + "nome=" + nome + ", senha=" + senha + '}';
     }
 
+    public void cadastrarUsuario(){
+        Cliente cliente = new Cliente();
+        cliente.enviarCadastro(this);
+    }
     
     
     public static void main(String[] args) {
         Usuario u1 = new Usuario("Kennedy", "123");
-        String serializar = Usuario.serializar(u1);
-        Usuario u2 = Usuario.desSerializar(serializar);
+        String objeto = u1.serializar();
+        
+        Usuario u2 = new Usuario();
+        u2 = u2.desSerializar(objeto);
         System.out.println(u2.toString());
     }
-
+    
 }

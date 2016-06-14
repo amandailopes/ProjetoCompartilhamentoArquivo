@@ -5,17 +5,16 @@
  */
 package projetocompartilhamentodearquivo;
 
+import java.util.Date;
+
 /**
  *
  * @author Amanda
  */
-public class ProjetoCompartilhamentoDeArquivo {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class Imagem extends Arquivo{
+    
+    public Imagem(String nome, float tamanho, Date dataDeCriacao, Usuario UsuariosAdd, String palavraChave, String extensao) {
+        super(nome, tamanho, dataDeCriacao, UsuariosAdd, palavraChave, extensao);
     }
     
 }
