@@ -110,11 +110,6 @@ class Usuario implements Serializable {
     public String toString() {
         return "Usuario{" + "nome=" + nome + ", senha=" + senha + '}';
     }
-
-    public void cadastrarUsuario(){
-        Cliente cliente = new Cliente();
-        cliente.enviarCadastro(this);
-    }
     
     
     public static void main(String[] args) {
