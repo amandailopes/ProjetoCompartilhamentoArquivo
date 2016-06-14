@@ -5,17 +5,11 @@
  */
 package projetocompartilhamentodearquivo;
 
-import java.io.DataInputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -78,20 +72,12 @@ public class Instrucao implements Serializable {
         System.out.println(u2.toString());
     }
 
+    
+
+    
+    
     void enviar() {
         String serializar = this.serializar();
-
-    }
-
-    private void getIPPorta() {
-        File dados = new File("servidor");
-        FileInputStream f = new FileInputStream(dados.getName());
-        int length = (int) dados.length();
-        byte[] buffer = new byte[length];
-        int nBytes;
-        String IP;
-        int porta;
-        dados.
 
     }
 }
