@@ -98,7 +98,7 @@ public class Instrucao implements Serializable {
 
     public enum tipoInstrucao {
 
-        LOGIN(1);
+        LOGIN(1), NOVOUSUARIO(2);
 
         private final int valor;
 
