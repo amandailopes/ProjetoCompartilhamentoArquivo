@@ -10,7 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -68,12 +67,28 @@ class Cliente implements Serializable {
         return confirmacao;
     }
 
+    private void listarUsuarios() throws IOException {
+        initTransmission ini = new initTransmission(initTransmission.LISTARUSUARIOS);
+        saida.writeObject(ini);
+        saida.flush();
+        saida.reset();
+        saida.writeObject(new FimDeTransmissao());
+        saida.flush();
+        saida.reset();
+    }
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Cliente c = new Cliente();
-        Usuario u = new Usuario("usuario", "senha");
-        c.enviarCadastro(u);
+        Usuario u1 = new Usuario("usuario1", "kenreurison1", "senha1");
+        c.enviarCadastro(u1);
+        
+        Usuario u2 = new Usuario("usuario2", "kenreurison2", "senha2");
         Cliente c2 = new Cliente();
-        c2.realizarLogin(u);
+        
+        c2.realizarLogin(u2);
+
+//        Cliente c3 = new Cliente();
+//        c3.listarUsuarios();
     }
 
 }

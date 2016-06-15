@@ -92,6 +92,10 @@ class ThreadRecebedor extends Thread {
                     saida.flush();
                     saida.reset();
                     break;
+                case initTransmission.LISTARUSUARIOS:
+                    System.out.println(Servidor.getUsuariosCadastrados().toString());
+                    System.out.println(Servidor.getUsuariosConectados().toString());
+                    break; 
             }
         } catch (IOException ex) {
             Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);

@@ -64,7 +64,7 @@ public class Instrucao implements Serializable {
     }
 
     public static void main(String[] args) {
-        Instrucao u1 = new Instrucao(tipoInstrucao.LOGIN, "Cadastrar Usuario", new Usuario("Kennedy", "123"));
+        Instrucao u1 = new Instrucao(tipoInstrucao.LOGIN, "Cadastrar Usuario", new Usuario("Kennedy", "kenreurison","123"));
         String objeto = u1.serializar();
 
         Instrucao u2 = new Instrucao();

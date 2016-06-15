@@ -7,8 +7,6 @@ package projetocompartilhamentodearquivo;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -79,9 +77,6 @@ public class Servidor {
 
     public static HashMap<Usuario, String> getUsuariosCadastrados() {
         return usuariosCadastrados;
-    }
-
-    public static void main(String[] args) throws IOException {
     }
 
 }

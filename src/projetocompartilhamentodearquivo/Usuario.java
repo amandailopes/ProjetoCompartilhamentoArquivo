@@ -27,17 +27,15 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public Usuario(String nome, String senha) {
+    public Usuario(String nome, String login, String senha) {
         this.nome = nome;
         this.senha = senha;
+        this.login = login;
     }
 
     private Usuario() {
-        
-    }
-    
 
-  
+    }
 
     public String getNome() {
         return nome;
@@ -110,15 +108,14 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Usuario{" + "nome=" + nome + ", senha=" + senha + '}';
     }
-    
-    
+
     public static void main(String[] args) {
-        Usuario u1 = new Usuario("Kennedy", "123");
+        Usuario u1 = new Usuario("Kennedy","kenreurison", "123");
         String objeto = u1.serializar();
-        
+
         Usuario u2 = new Usuario();
         u2 = u2.desSerializar(objeto);
         System.out.println(u2.toString());
     }
-    
+
 }

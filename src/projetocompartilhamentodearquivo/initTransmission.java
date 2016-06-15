@@ -16,6 +16,7 @@ public class initTransmission implements Serializable {
     public static final int LOGIN = 1;
     public static final int NOVOUSUARIO = 2;
     public static final int LISTARARQUIVOS = 3;
+    public static final int LISTARUSUARIOS = 4;
 
     private final int valor;
 

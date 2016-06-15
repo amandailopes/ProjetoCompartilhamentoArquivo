@@ -26,7 +26,7 @@ public class Cliente {
         ObjectOutputStream output = new ObjectOutputStream(socketClient.getOutputStream());
         ObjectInputStream input = new ObjectInputStream(socketClient.getInputStream());
 
-        Usuario u = new Usuario("Kennedy", "Senha");
+        Usuario u = new Usuario("Kennedy", "kenreurison", "Senha");
 
         output.writeObject(u);
         output.flush();
@@ -36,14 +36,14 @@ public class Cliente {
         Usuario u2 = (Usuario) input.readObject();
         Boolean readObject = false;
         readObject = (Boolean) input.readObject();
-        
+
         output.writeObject(new FimDeTransmissao());
         output.flush();
         output.reset();
         output.close();
         System.out.println(readUTF);
         System.out.println(u2.toString());
-        
+
     }
 
     public static void main(String[] args) {
