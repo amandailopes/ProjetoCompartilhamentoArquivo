@@ -12,9 +12,9 @@ import java.util.Date;
  * @author Amanda
  */
 public class Imagem extends Arquivo{
-    
+
     public Imagem(String nome, float tamanho, Date dataDeCriacao, Usuario UsuariosAdd, String palavraChave, String extensao) {
         super(nome, tamanho, dataDeCriacao, UsuariosAdd, palavraChave, extensao);
     }
-    
+
 }

@@ -7,13 +7,11 @@ package projetocompartilhamentodearquivo;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -21,11 +19,17 @@ import java.util.List;
  */
 public class Servidor {
 
-    private HashMap<Usuario, String> usuariosConectados = new HashMap<>();
-    private HashMap<Usuario, String> usuariosCadastrados = new HashMap<>();
+    private static HashMap<Usuario, String> usuariosConectados;
+    private static HashMap<Usuario, String> usuariosCadastrados;
 
     Servidor() {
+        if (usuariosCadastrados == null) {
+            usuariosCadastrados = new HashMap<>();
 
+        }
+        if (usuariosConectados == null) {
+            usuariosConectados = new HashMap<>();
+        }
     }
 
     public boolean usuarioExiste(Usuario u) {
@@ -36,17 +40,24 @@ public class Servidor {
         return usuariosConectados.containsValue(u.getLogin());
     }
 
-    public void cadastrarUsuario(Usuario u) {
+    public Boolean cadastrarUsuario(Usuario u) {
         if (!usuarioExiste(u)) {
             usuariosCadastrados.put(u, u.getLogin());
-            System.out.println(usuariosCadastrados.toString());
+            return true;
         }
+        return false;
     }
 
-    public void conectarUsuario(Usuario u) {
+    public Boolean conectarUsuario(Usuario u) {
         if (!usuarioConectado(u) && usuarioExiste(u)) {
             usuariosConectados.put(u, u.getLogin());
+            return true;
         }
+        return false;
+    }
+
+    public void desconectarUsuario(Usuario u) {
+        usuariosConectados.remove(u.getLogin());
     }
 
     private void criarDiretorio() {
@@ -58,17 +69,19 @@ public class Servidor {
 
     public ArrayList<File> listarArquivos() {
         File diretorio = new File("arquivos");
-        ArrayList<File> asList = new ArrayList<File>(Arrays.asList(diretorio.listFiles()));
+        ArrayList<File> asList = new ArrayList<>(Arrays.asList(diretorio.listFiles()));
         return asList;
     }
 
+    public static HashMap<Usuario, String> getUsuariosConectados() {
+        return usuariosConectados;
+    }
+
+    public static HashMap<Usuario, String> getUsuariosCadastrados() {
+        return usuariosCadastrados;
+    }
+
     public static void main(String[] args) throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1234);
-        System.out.println(serverSocket.getLocalPort());
-        while (true) {
-            Socket accept = serverSocket.accept();
-            new ThreadRecebedor(accept).start();
-        }
     }
 
 }

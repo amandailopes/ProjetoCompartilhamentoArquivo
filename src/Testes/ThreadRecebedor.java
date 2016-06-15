@@ -48,6 +48,10 @@ class ThreadRecebedor extends Thread {
                     output.writeObject(u);
                     output.flush();
                     output.reset();
+                    Boolean b = new Boolean(true);
+                    output.writeObject(b);
+                    output.flush();
+                    output.reset();
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);

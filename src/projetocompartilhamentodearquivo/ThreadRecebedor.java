@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -20,8 +21,9 @@ import java.util.logging.Logger;
  */
 class ThreadRecebedor extends Thread {
 
-    ObjectInputStream entrada;
-    ObjectOutputStream saida;
+    private ObjectInputStream entrada;
+    private ObjectOutputStream saida;
+    private Servidor s = new Servidor();
 
     public ThreadRecebedor(Socket cliente) {
         try {
@@ -32,9 +34,9 @@ class ThreadRecebedor extends Thread {
         }
     }
 
-    private Usuario lerObjeto() {
+    private Object lerObjeto() {
         try {
-            return (Usuario) entrada.readObject();
+            return entrada.readObject();
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(ThreadRecebedor.class.getName()).
                     log(Level.SEVERE, null, ex);
@@ -56,8 +58,58 @@ class ThreadRecebedor extends Thread {
 
     @Override
     public void run() {
-        Servidor s = new Servidor();
-        Usuario lido =  lerObjeto();
+        while (true) {
+            Object lido = lerObjeto();
+            if (lido instanceof FimDeTransmissao) {
+                break;
+            }
+            if (lido instanceof initTransmission) {
+                initTransmission codigo = (initTransmission) lido;
+                rotina(codigo);
+            }
+        }
     }
     //http://pt.stackoverflow.com/questions/25520/enviar-objetos-via-socket
+
+    private void rotina(initTransmission codigo) {
+        try {
+            Usuario u = null;
+            Boolean b = false;
+            switch (codigo.getValor()) {
+                case initTransmission.LOGIN:
+                    u = (Usuario) entrada.readObject();
+                    b = s.conectarUsuario(u);
+                    saida.writeObject(b);
+                    saida.flush();
+                    saida.reset();
+                    break;
+                case initTransmission.LISTARARQUIVOS:
+                    break;
+                case initTransmission.NOVOUSUARIO:
+                    u = (Usuario) entrada.readObject();
+                    b = s.cadastrarUsuario(u);
+                    saida.writeObject(b);
+                    saida.flush();
+                    saida.reset();
+                    break;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        ServerSocket serverSocket = new ServerSocket(1234);
+        Socket accept = null;
+        while (true) {
+            try {
+                accept = serverSocket.accept();
+            } catch (IOException ex) {
+                Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            new ThreadRecebedor(accept).start();
+        }
+    }
 }

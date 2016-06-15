@@ -24,7 +24,7 @@ public class Cliente {
     public Cliente() throws IOException, ClassNotFoundException {
 
         ObjectOutputStream output = new ObjectOutputStream(socketClient.getOutputStream());
-        ObjectInputStream ois = new ObjectInputStream(socketClient.getInputStream());
+        ObjectInputStream input = new ObjectInputStream(socketClient.getInputStream());
 
         Usuario u = new Usuario("Kennedy", "Senha");
 
@@ -32,8 +32,10 @@ public class Cliente {
         output.flush();
         output.reset();
 
-        String readUTF = ois.readUTF();
-        Usuario u2 = (Usuario) ois.readObject();
+        String readUTF = input.readUTF();
+        Usuario u2 = (Usuario) input.readObject();
+        Boolean readObject = false;
+        readObject = (Boolean) input.readObject();
         
         output.writeObject(new FimDeTransmissao());
         output.flush();
