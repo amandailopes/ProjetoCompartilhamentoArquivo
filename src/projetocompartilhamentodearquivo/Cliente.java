@@ -34,6 +34,7 @@ class Cliente implements Serializable {
         }
 
     }
+    
 
     public Boolean enviarCadastro(Usuario u) throws IOException, ClassNotFoundException {
         initTransmission ini = new initTransmission(initTransmission.NOVOUSUARIO);

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author kenreurison
+ * @author Amanda
  */
 public class initTransmission implements Serializable {
 

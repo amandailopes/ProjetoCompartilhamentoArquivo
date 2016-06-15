@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author kenreurison
+ * @author Amanda
  */
 public class Servidor {
 

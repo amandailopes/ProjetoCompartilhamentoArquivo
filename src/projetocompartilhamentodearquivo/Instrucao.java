@@ -56,7 +56,9 @@ public class Instrucao implements Serializable {
             e.printStackTrace();
         }
         return o;
+        
     }
+    
 
     @Override
     public String toString() {

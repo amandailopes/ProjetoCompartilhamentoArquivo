@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * 
  * @author Amanda
  */
 class ThreadRecebedor extends Thread {
@@ -33,7 +33,11 @@ class ThreadRecebedor extends Thread {
             Logger.getLogger(ThreadRecebedor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+     
+    /**
+     * 
+     * @return retorno da classe
+     */
     private Object lerObjeto() {
         try {
             return entrada.readObject();

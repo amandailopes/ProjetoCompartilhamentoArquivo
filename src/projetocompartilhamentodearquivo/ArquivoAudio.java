@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author Amanda
+ * Arquivo de audio que herda da classe Arquivo
  */
 public class ArquivoAudio extends Arquivo {
     
